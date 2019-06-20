@@ -1,11 +1,11 @@
 <?php
-namespace app\index\controller;
+namespace app\admin\controller;
 
 class Index
 {
     public function index()
     {
-	echo"123 789";
+	echo"123";
        
     }
 

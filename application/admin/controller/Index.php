@@ -1,11 +1,16 @@
 <?php
 namespace app\admin\controller;
+use think\Controller;
+use think\Db;
 
 class Index
 {
     public function index()
     {
-	echo"123";
+    $mysql="select * from user";
+    $arr1=Db::query($mysql);
+ 	var_dump($arr1);
+	 // return view("index");
        
     }
 

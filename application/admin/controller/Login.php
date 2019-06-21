@@ -4,7 +4,8 @@ use think\Controller;
 use think\Db;
 use app\index\model\User;
 use think\captcha\Captcha;
-class Login
+use think\facade\Session;
+class Login extends Controller
 {
     public function login()
     {
@@ -25,12 +26,16 @@ class Login
 	  	$arr=['name'=>'2','status'=>'error','message'=>"账号或码错误"];
 	  	}else{
 	  		$arr=['name'=>'0','status'=>'OK','message'=>"登录成功"];
+	  		Session::set('name',$name);
 	  	}
 	  }
 	  $json=json_encode($arr);
 	  echo $json;
     }
-    
+    function out(){
+    	Session::delete('name');
+    	$this->redirect('login/login');
+    }
 
     
 }

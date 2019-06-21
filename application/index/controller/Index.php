@@ -5,13 +5,10 @@ class Index
 {
     public function index()
     {
-	echo"123 123789";
+	return view("index");
        
     }
 
-    public function hello($name = 'ThinkPHP5')
-    {
-        return 'hello,' . $name;
-    }
+  
 }
 ?>

@@ -8,7 +8,7 @@ class Index
 	return view("index");
        
     }
-
+    
   
 }
 ?>

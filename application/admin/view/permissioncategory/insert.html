@@ -1,0 +1,65 @@
+  {include file="header"/}
+ <div id="dcMain">
+   <!-- 当前位置 -->
+<div id="urHere">DouPHP 管理中心<b>></b><strong>网站管理员</strong> </div>   <div id="manager" class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
+    <h3><a href="{:url('Permissioncategory/list')}" class="actionBtn">返回列表</a>网站管理员</h3>
+     <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+      <tr>
+       <td width="100" align="right">权限名字</td>
+       <td>
+        <input type="text" id="name" size="40" class="inpMain" />
+       </td>
+      </tr>
+      <tr>
+       <td width="100" align="right">权限描述</td>
+       <td>
+        <input type="text" id="marks" size="40" class="inpMain" />
+       </td>
+      </tr>
+      <tr>
+       <td></td>
+       <td>
+        <input type="hidden" name="token" value="5a58b748" />
+        <input type="submit" onclick="log()" name="submit" class="btn" value="提交" />
+       </td>
+      </tr>
+     </table>
+    
+                   </div>
+ </div>
+ <div class="clear"></div>
+<div id="dcFooter">
+ <div id="footer">
+  <div class="line"></div>
+  <ul>
+   版权所有 © 2013-2015 漳州豆壳网络科技有限公司，并保留所有权利。
+  </ul>
+ </div>
+</div><!-- dcFooter 结束 -->
+<div class="clear"></div> </div>
+<script type="text/javascript">
+
+	function log(){
+	 var name=$('#name').val();
+	 var marks=$('#marks').val();
+	 console.log(name);
+	 console.log(marks);
+
+		$.ajax({
+		url:"{:url('Permissioncategory/add')}",
+		data:{
+			name:name,
+			marks:marks
+		},
+		type:'post',
+		//dataType:'json',
+		success:function(reusult){
+			alert();
+			
+		}
+	})
+	} 
+
+</script>
+</body>
+</html>

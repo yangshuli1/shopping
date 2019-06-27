@@ -2,6 +2,7 @@
 namespace app\admin\controller;
 use think\Controller;
 use think\Db;
+use gmars\rbac\Rbac;
 use app\index\model\User;
 use think\captcha\Captcha;
 use think\facade\Session;
@@ -20,13 +21,15 @@ class Login extends Controller
 	  if (!$captcha->check($yan)) {
 	  	$arr=['yan'=>'1','status'=>'error','message'=>"验证码错误"];
 	  }else{
-	  	$where=['name'=>$name,'password'=>$pass];
-	  	$res=Db::table('admin')->where($where)->find();
+	  	$where=['user_name'=>$name,'password'=>$pass];
+	  	$res=Db::table('user')->where($where)->find();
 	  	if (empty($res)) {
 	  	$arr=['name'=>'2','status'=>'error','message'=>"账号或码错误"];
 	  	}else{
 	  		$arr=['name'=>'0','status'=>'OK','message'=>"登录成功"];
 	  		Session::set('name',$name);
+	  		$rbac=new Rbac();
+	  		$rbac->cachepermission($res['id']);
 	  	}
 	  }
 	  $json=json_encode($arr);

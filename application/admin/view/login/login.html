@@ -93,7 +93,7 @@
 		success:function(reusult){
 			console.log(reusult)
 			if (reusult.status=='OK') {
-				location.href="{:url('index/index')}"
+				location.href="{:url('Index/index')}"
 			}else{
 			$('#span').css("color","red")
 			$('#span').html(reusult.message)

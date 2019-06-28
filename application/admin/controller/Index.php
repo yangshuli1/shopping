@@ -5,9 +5,9 @@ use think\Db;
 use gmars\rbac\Rbac;
 class Index extends Common
 {
-   public function Index ()
+   public function index ()
    {
-   	return view("Index");
+   	return view("index");
    }
    
 }

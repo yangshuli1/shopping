@@ -2,6 +2,7 @@
 namespace app\admin\controller;
 use think\Controller;
 use think\Db;
+use gmars\rbac\Rbac;
 use app\index\model\User;
 use think\captcha\Captcha;
 use think\facade\Session;

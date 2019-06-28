@@ -41,20 +41,20 @@
 
 	function log(){
 	 var name=$('#name').val();
-	 var marks=$('#marks').val();
+	 var description=$('#marks').val();
 	 console.log(name);
-	 console.log(marks);
+	 // console.log(marks);
 
 		$.ajax({
 		url:"{:url('Permissioncategory/add')}",
 		data:{
 			name:name,
-			marks:marks
+			description:description
 		},
 		type:'post',
-		//dataType:'json',
+		dataType:'json',
 		success:function(reusult){
-			alert();
+			alert(reusult.data);
 			
 		}
 	})

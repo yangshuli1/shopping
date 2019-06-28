@@ -7,7 +7,7 @@
           </table>
            </div>
  </div>
- <div class="clear"></div>
+ <div class="clear" onclick='dele()'></div>
 <div id="dcFooter">
  <div id="footer">
   <div class="line"></div>
@@ -24,17 +24,19 @@
 		success:function(reusult){
 			var cole=reusult.message
 			var tr=''
-			tr=tr+"<tr><th width='120' align='left'>分类名称</th><th align='left'>简单描述</th><th width='80' align='center'>操作</th></tr>"
+			tr=tr+"<tr><th align='left'>序号</th><th width='120' align='left'>分类名称</th><th align='left'>简单描述</th><th width='80' align='center'>操作</th></tr>"
 			for (var i = 0; i<cole.length; i++) {
 				// console.log(cole[i].name);
 				console.log(cole[i].name);
-				tr=tr+"<tr><td align='left'><a href='article.php?cat_id=1'>"+cole[i].name+"</a></td><td>"+cole[i].description+"</td><td align='center'><a href=''>编辑</a>|<a href=''>删除</a></td></tr>"
+				tr=tr+"<tr><td>"+cole[i].id+"</td><td align='left'><a href='article.php?cat_id=1'>"+cole[i].name+"</a></td><td>"+cole[i].description+"</td><td align='center'><a href=''>编辑</a>|<a onclick='dele()'>删除</a></td></tr>"
 			}
 			$("#table").html(tr)
 			
 		}
 	})
-	
+	function dele(id){
+		console.log(id);
+	}
 
 </script>
 </body>

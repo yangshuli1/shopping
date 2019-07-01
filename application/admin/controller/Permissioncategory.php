@@ -14,12 +14,10 @@ class Permissioncategory extends Common
     public function add()
    {
    $data=Request::post('');
-   // var_dump($data);
-   // die;
    	 $validate = new \app\admin\validate\permiss;
    	  if (!$validate->check($data)) {
    	  	$arr=['yan'=>'1','status'=>'error','data'=>$validate->getError()];
-          $json=json_encode($arr);
+        $json=json_encode($arr);
 	 	echo $json;
 	 	die;
         }
@@ -58,7 +56,33 @@ class Permissioncategory extends Common
    	 $json=json_encode($arrr);
 	 echo $json;
    }
-
+   public function dele()
+   {
+   	$data=Request::post('id');
+   	$rbac=new Rbac;
+   	$rbac->delPermissionCategory([$data]);
+   	$arr=['yan'=>'0','status'=>'error','data'=>"删除成功"];
+   	 $json=json_encode($arr);
+	 	echo $json;
+   }
+   public function mydel()
+   {
+   	$id=Request::post('id');
+   	if (empty($id)) {
+   		$arr=['yan'=>'0','status'=>'error','data'=>"请选择要删除的内容"];
+   	 $json=json_encode($arr);
+	 	echo $json;
+   	}else{
+   	$data=explode(',', $id);
+   	array_shift($data);
    
+   	$rbac=new Rbac;
+   	$rbac->delPermissionCategory($data);
+   	$arr=['yan'=>'0','status'=>'error','data'=>"删除成功"];
+   	 $json=json_encode($arr);
+	 	echo $json;
+   	}
+   
+   }
 }
 ?>

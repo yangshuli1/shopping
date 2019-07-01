@@ -3,11 +3,12 @@
    <!-- 当前位置 -->
 <div id="urHere">DouPHP 权限分类中心<b>></b><strong>权限分类</strong> </div>   <div class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
         <h3><a href="{:url('Permissioncategory/insert')}" class="actionBtn add">添加分类</a>权限分类分类</h3>
+        <span ><h3><a class="actionBtn add" onclick="mydel()" >批量删除</a></h3></span>
     <table width="100%" id="table" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
           </table>
            </div>
  </div>
- <div class="clear" onclick='dele()'></div>
+ <div class="clear" onclick='delet()'></div>
 <div id="dcFooter">
  <div id="footer">
   <div class="line"></div>
@@ -24,20 +25,96 @@
 		success:function(reusult){
 			var cole=reusult.message
 			var tr=''
-			tr=tr+"<tr><th align='left'>序号</th><th width='120' align='left'>分类名称</th><th align='left'>简单描述</th><th width='80' align='center'>操作</th></tr>"
+			tr=tr+"<tr><th align='left'> <input type='checkbox' id='boxid' onclick='setAllNo()' /></th><th align='left'>序号</th><th width='120' align='left'>分类名称</th><th align='left'>简单描述</th><th width='80' align='center'>操作</th></tr>"
 			for (var i = 0; i<cole.length; i++) {
-				// console.log(cole[i].name);
-				console.log(cole[i].name);
-				tr=tr+"<tr><td>"+cole[i].id+"</td><td align='left'><a href='article.php?cat_id=1'>"+cole[i].name+"</a></td><td>"+cole[i].description+"</td><td align='center'><a href=''>编辑</a>|<a onclick='dele()'>删除</a></td></tr>"
+				//console.log(cole[i].name);
+				tr=tr+"<tr><td><input type='checkbox' class='mycheckbox' value='"+cole[i].id+"' name='love'/></td><td>"+cole[i].id+"</td><td align='left'><span class='span'>"+cole[i].name+"</span></td><td>"+cole[i].description+"</td><td align='center'><a href=''>编辑</a>|<a onclick='dele("+cole[i].id+")'>删除</a></td></tr>"
 			}
-			$("#table").html(tr)
-			
+			$("#table").html(tr)		
 		}
 	})
 	function dele(id){
-		console.log(id);
+		var id=id;
+		$.ajax({
+		url:"{:url('Permissioncategory/dele')}",
+		data:{
+			id:id
+		},
+		type:'post',
+		dataType:'json',
+		success:function(reusult){
+		alert(reusult.data);
+		location.reload(true);
+		}
+	})
 	}
+	 function setAllNo(){
+             var box = document.getElementById("boxid");
+             var loves = document.getElementsByName("love");
+             if(box.checked == false){
+                 for (var i = 0; i < loves.length; i++) {
+                     loves[i].checked = false;
+                 }
+             }else{
 
+                 for (var i = 0; i < loves.length; i++) {
+                     loves[i].checked = true;
+                     }
+             }
+        }
+        function mydel(){
+        	 if (confirm("你确定要全部删除吗？")) {  
+            
+            var box=$(".mycheckbox:checked")
+        	var id=''//给一个空数组0
+        	for (var i = 0; i < box.length; i++) {
+        		id=id+','+box[i].value//因为是空数组所以第一位是0用，隔开
+        	}
+        	$.ajax({
+		url:"{:url('Permissioncategory/mydel')}",
+		data:{
+			id:id
+		},
+		type:'post',
+		dataType:'json',
+		success:function(reusult){
+		alert(reusult.data);
+		location.reload(true);
+				}
+			})
+        }  
+        else {  
+        }  
+        	
+        }
+       // $(document).ready(function(){
+        	$(document).on("click",".span",function(){
+       		var name=$(this).text()
+       		var input="<input class='myspan' type='text' value='"+name+"'>"
+       		$(this).parent().html(input)
+       })
+        	$(document).on("blur","myspan",function(){
+       		var name=$(this).value()
+       		var input="<input type='text' value='"+name+"'>"
+       		$(this).parent().html(input)
+       			$.ajax({
+		url:"{:url('Permissioncategory/updat')}",
+		data:{
+			name:name
+		},
+		type:'post',
+		//dataType:'json',
+		success:function(reusult){
+		alert(reusult.data);
+		//location.reload(true);
+				}
+			})
+        }  
+        else {  
+        }
+       
+       // })
+       
 </script>
 </body>
 </html>

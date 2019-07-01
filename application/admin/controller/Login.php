@@ -12,6 +12,7 @@ class Login extends Controller
     {
 	return view("login");
     }
+
      public function log()
     { 
 	  $name=input('get.name');

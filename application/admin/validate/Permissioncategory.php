@@ -4,7 +4,7 @@ namespace app\admin\validate;
 
 use think\Validate;
 
-class permiss extends Validate
+class Permissioncategory extends Validate
 {
     /**
      * 定义验证规则

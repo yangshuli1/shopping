@@ -4,6 +4,7 @@ use think\Controller;
 use think\Db;
 use gmars\rbac\Rbac;
 use Request;
+use think\Validate;
 class Permissioncategory extends Common
 {
 
@@ -14,14 +15,13 @@ class Permissioncategory extends Common
     public function add()
    {
    $data=Request::post('');
-   	 $validate = new \app\admin\validate\permiss;
+   	  $validate = new \app\admin\validate\Permissioncategory;
    	  if (!$validate->check($data)) {
    	  	$arr=['yan'=>'1','status'=>'error','data'=>$validate->getError()];
         $json=json_encode($arr);
 	 	echo $json;
 	 	die;
-        }
-   	 
+        }	 
    $rbac=new Rbac;
    $name=$rbac->getPermissionCategory([['name','=',$data['name']]]);
    if (empty($name)) {
@@ -40,7 +40,6 @@ class Permissioncategory extends Common
 	 	echo $json;
 	 	
    }
-   
    }
    public function insert()
    {
@@ -84,5 +83,38 @@ class Permissioncategory extends Common
    	}
    
    }
+   public function updat()
+   {
+   	$data=Request::post('name');
+   	$id=Request::post('id');
+
+   $rbac=new Rbac;
+   $name=$rbac->getPermissionCategory([['name','=',$data]]);
+   if (empty($name)) {
+   	 $mysql="update permission_category set name='$data' where id='$id'";
+     $arr=Db::query($mysql);
+	$arr=['yan'=>'1','status'=>'OK','data'=>"修改成功"];
+ 	$json=json_encode($arr);
+	 	echo $json;
+	die;
+   }else{
+   	if ($name[0]['id']!=$id) {
+   	$arr=['yan'=>'0','status'=>'error','data'=>"类名已存在"];
+   	 $json=json_encode($arr);
+	 	echo $json;
+	 	die;
+   }
+    $mysql="update permission_category set name='$data' where id='$id'";
+     $arr=Db::query($mysql);
+	$arr=['yan'=>'1','status'=>'OK','data'=>""];
+ 	$json=json_encode($arr);
+	 	echo $json;
+   // 	$arr=['yan'=>'0','status'=>'error','data'=>"类名已存在"];
+   // 	 $json=json_encode($arr);
+	 	// echo $json;
+	 	//echo "23456";
+   }
+   }
+   
 }
 ?>

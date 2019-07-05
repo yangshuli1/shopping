@@ -15,5 +15,11 @@ class Common extends Controller
 		$this->assign('name',$name);
 	}
     }
+    // public function gettoken(){
+    //     $token = $this->request->token('__token__', 'sha1');
+    //     $json=['code'=>'0','status','error'=>'ok','data'=>$token];
+    //     echo json_encode($json);
+    //     Session::set('token',$token);
+    // }
 }
 ?>

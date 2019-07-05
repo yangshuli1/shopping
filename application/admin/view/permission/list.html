@@ -1,8 +1,8 @@
 {include file="header"/}
  <div id="dcMain">
    <!-- 当前位置 -->
-<div id="urHere">DouPHP 权限分类中心<b>></b><strong>权限分类</strong> </div>   <div class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
-        <h3><a href="{:url('Permissioncategory/insert')}" class="actionBtn add">添加分类</a>权限分类分类</h3>
+<div id="urHere">DouPHP 权限中心<b>></b><strong>权限</strong> </div>   <div class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
+        <h3><a href="{:url('Permission/insert')}" class="actionBtn add">添加权限</a>权限管理</h3>
         <span ><h3><a class="actionBtn add" onclick="mydel()" >批量删除</a></h3></span>
     <table width="100%" id="table" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
           </table>
@@ -13,7 +13,7 @@
  <div id="footer">
   <div class="line"></div>
   <ul>
-   版权所有 © 2013-2015 漳州豆壳网络科技有限公司，并保留所有权利。
+   
   </ul>
  </div>
 </div><!-- dcFooter 结束 -->
@@ -21,26 +21,26 @@
 <script type="text/javascript">
 	function show(){
 		$.ajax({
-		url:"{:url('Permissioncategory/action')}",
+		url:"{:url('Permission/action')}",
 		dataType:'json',
 		success:function(reusult){
-			var cole=reusult.message
+			var cole=reusult.data
 			var tr=''
-			tr=tr+"<tr><th align='left'> <input type='checkbox' id='boxid' onclick='setAllNo()' /></th><th align='left'>序号</th><th width='120' align='left'>分类名称</th><th align='left'>简单描述</th><th width='80' align='center'>操作</th></tr>"
+			tr=tr+"<tr><th align='left'> <input type='checkbox' id='boxid' onclick='setAllNo()' /></th><th align='left'>序号</th><th width='120' align='left'>权限名称</th><th width='120' align='left'>权限路径</th><th width='120' align='left'>权限描述</th><th align='left'>权限类型</th><th width='80' align='center'>操作</th></tr>"
 			for (var i = 0; i<cole.length; i++) {
 				//console.log(cole[i].name);
-				tr=tr+"<tr><td><input type='checkbox' class='mycheckbox' value='"+cole[i].id+"' name='love'/></td><td>"+cole[i].id+"</td><td align='left' value='"+cole[i].id+"'><span class='span'>"+cole[i].name+"</span></td><td>"+cole[i].description+"</td><td align='center'><a href=''>编辑</a>|<a onclick='dele("+cole[i].id+")'>删除</a></td></tr>"
+				tr=tr+"<tr><td><input type='checkbox' class='mycheckbox' value='"+cole[i].id+"' name='love'/></td><td>"+cole[i].id+"</td><td align='left' value='"+cole[i].id+"'><span class='span'>"+cole[i].name+"</span></td><td>"+cole[i].path+"</td><td>"+cole[i].description+"</td><td>"+cole[i].pc_name+"</td><td align='center'><a href='{:url('Permission/updat')}?id="+cole[i].id+"'>编辑</a>|<a onclick='dele("+cole[i].id+")'>删除</a></td></tr>"
 			}
 			$("#table").html(tr)		
 		}
 	})
-	}
 
-//	})
+	}
+	show()
 	function dele(id){
 		var id=id;
 		$.ajax({
-		url:"{:url('Permissioncategory/dele')}",
+		url:"{:url('Permission/dele')}",
 		data:{
 			id:id
 		},
@@ -50,6 +50,7 @@
 		alert(reusult.data);
 		show()
 		}
+
 	})
 	}
 	 function setAllNo(){
@@ -66,11 +67,11 @@
                      }
              }
         }
+
         function mydel(){
         	 if (confirm("你确定要全部删除吗？")) {  
             
             var box=$(".mycheckbox:checked")
-            console.log(box)
         	var id=''//给一个空数组0
         	for (var i = 0; i < box.length; i++) {
         		id=id+','+box[i].value//因为是空数组所以第一位是0用，隔开
@@ -92,39 +93,7 @@
         }  
         	
         }
-       $(document).ready(function(){
-        	$(document).on("click",".span",function(){
-       		var name=$(this).text()
-       		var id=$(this).parent().attr("value")
-       		//console.log(id)
-       		var input="<input class='myspan' type='text' value='"+name+"'>"
-       		$(this).parent().html(input)
-        	$(document).on("blur",".myspan",function(){
-       		var name=$(this).val()
-       		var input="<input type='text' value='"+name+"'>"
-       		$(this).parent().html(input)
-       			$.ajax({
-		url:"{:url('Permissioncategory/updat')}",
-		data:{
-			name:name,
-			id:id
-		},
-		type:'post',
-		dataType:'json',
-		success:function(reusult){
-			if (reusult.data!='') {
-				alert(reusult.data);
-		show()
-			}else{
-				show()
-			}	
-				}
-			})
-
-        })
-       })
-        	show()
-	        	})
+ 
 </script>
 </body>
 </html>

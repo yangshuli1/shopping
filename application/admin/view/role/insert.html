@@ -1,0 +1,111 @@
+  {include file="header"/}
+ <div id="dcMain">
+   <!-- 当前位置 -->
+<div id="urHere">DouPHP 管理中心<b>></b><strong>角色管理</strong> </div>   <div id="manager" class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
+    <h3><a href="" class="actionBtn">列表</a>角色管理</h3>
+     <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+      <tr>
+       
+        <input type="hidden" id="__token__" name="__token__" value="{$Request.token}" />
+       </td>
+      </tr>
+      <tr>
+       <td width="100" align="right">角色名字</td>
+       <td>
+        <input type="text" id="name" size="40" class="inpMain" />
+       </td>
+      </tr>
+      <tr>
+       <td width="100" align="right">角色备注</td>
+       <td>
+        <input type="text" id="path" size="40" class="inpMain" />
+       </td>
+      </tr>
+      <tr>
+       <td width="100" align="right">网站角色</td>
+       <td >
+         <dl id='dat'>
+					
+		</dl>
+       </td>
+      </tr>
+    <tr>
+       <td></td>
+       <td>
+        <input type="hidden" name="token" value="5a58b748" />
+        <input type="submit" onclick="log()" name="submit" class="btn" value="提交" />
+       </td>
+      </tr>
+     </table>
+    
+                   </div>
+ </div>
+ <div class="clear"></div>
+<div id="dcFooter">
+ <div id="footer">
+  <div class="line"></div>
+  <ul>
+  </ul>
+ </div>
+</div><!-- dcFooter 结束 -->
+<div class="clear"></div> </div>
+<script type="text/javascript">
+		$.ajax({
+		url:"{:url('role/show')}",
+		dataType:'json',
+		success:function(reusult){
+			var data=reusult.data
+			dl=''
+			$.each(data, function( key, value) {
+				dl=dl+"<dt><label class=''><input type='checkbox' value='' id='boxid' onclick='setAllNo()' />"+key+"</label></dt><dd>"
+				$.each(value,function( key1 ,value1 ){
+						dl=dl+"	<label class=''><input type='checkbox' class='mycheckbox' name='love' value='"+value1['id']+"'>"+value1['name']+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>"
+					})
+				dl=dl+"</dd>";
+			});
+				$('#dat').html(dl)
+		}
+	})
+	
+	 function setAllNo(){
+             var box = document.getElementById("boxid");
+             var loves = document.getElementsByName("love");
+             if(box.checked == false){
+                 for (var i = 0; i < loves.length; i++) {
+                     loves[i].checked = false;
+                 }
+             }else{
+                 for (var i = 0; i < loves.length; i++) {
+                     loves[i].checked = true;
+                     }
+             }
+        }
+	function log(){
+ 	var name=$('#name').val();
+    var path=$('#path').val();
+  	var box=$('.mycheckbox:checked')
+  	var pemid=''
+  	console.log(name);
+  	console.log(path);
+	 for (var i = 0; i < box.length; i++) {
+     pemid=pemid+','+box[i].value
+        	}  
+     // 	console.log(pemid);
+		$.ajax({
+		url:"{:url('Role/add')}",
+		data:{
+			name:name,
+      path:path,
+			pemid:pemid
+		},
+		type:'post',
+		dataType:'json',
+		success:function(reusult){
+			alert(reusult.data)
+		}
+	})
+	} 
+
+</script>
+</body>
+</html>

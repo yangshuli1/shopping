@@ -29,8 +29,8 @@ class Login extends Controller
 	  	}else{
 	  		$arr=['name'=>'0','status'=>'OK','message'=>"登录成功"];
 	  		Session::set('name',$name);
-	  		$rbac=new Rbac();
-	  		$rbac->cachepermission($res['id']);
+	  		// $rbac=new Rbac();
+	  		// $rbac->cachepermission($res['id']);
 	  	}
 	  }
 	  $json=json_encode($arr);

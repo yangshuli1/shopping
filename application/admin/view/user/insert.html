@@ -56,10 +56,10 @@
 <script type="text/javascript">
 function getcate(){
     $.ajax({
-    url:"{:url('Permissioncategory/action')}",
+    url:"{:url('Role/action')}",
     dataType:'json',
     success:function(reusult){
-      var coud=reusult.message
+      var coud=reusult.data
       var option=''
       for (var i = 0; i<coud.length; i++) {
        option=option+"<option value='"+coud[i]['id']+"'>"+coud[i]['name']+"</option>"

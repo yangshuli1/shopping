@@ -27,8 +27,8 @@ class Role extends Validate
         'name.require' => '名称必须',
         'name.max'     => '名称最多不能超过50个字符',
         'name.min'     => '名称最少不能少于1个字符',
-        'description.require' => '角色路径必须',
-        'description.max'     => '角色路径最多不能超过200个字符',
-        'description.min'     => '角色路径最少不能少于1个字符',
+        'description.require' => '角色描述必须',
+        'description.max'     => '角色描述最多不能超过200个字符',
+        'description.min'     => '角色描述最少不能少于1个字符',
     ];
 }

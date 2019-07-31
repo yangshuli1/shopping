@@ -25,19 +25,21 @@ class Login extends Controller
 	  	$where=['user_name'=>$name,'password'=>$pass];
 	  	$res=Db::table('user')->where($where)->find();
 	  	if (empty($res)) {
+	  		//var_dump($res);
 	  	$arr=['name'=>'2','status'=>'error','message'=>"账号或码错误"];
 	  	}else{
 	  		$arr=['name'=>'0','status'=>'OK','message'=>"登录成功"];
 	  		Session::set('name',$name);
-	  		// $rbac=new Rbac();
-	  		// $rbac->cachepermission($res['id']);
+	  		$rbac=new Rbac();
+	  		$rbac->cachePermission($res['id']);//传入参数为登录用户的user_id
+			//该方法会返回该用户所有的权限列表
 	  	}
 	  }
 	  $json=json_encode($arr);
 	  echo $json;
     }
     function out(){
-    	Session::delete('name');
+    	Session::clear();
     	$this->redirect('login/login');
     }
 

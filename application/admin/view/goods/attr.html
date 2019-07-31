@@ -1,0 +1,128 @@
+{include file="header"/}
+ <div id="dcMain">
+   <!-- 当前位置 -->
+<div id="urHere">DouPHP 属性中心<b>></b><strong>属性</strong> </div>   <div class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
+        <h3><a href="{:url('Permission/insert')}" class="actionBtn add">添加属性</a>属性管理</h3>
+       <!--  -->
+        <select id="sel" onchange="attr()"><option value="0"></option></select>
+         <dl id='dat'>
+			
+		</dl>
+		<input type="submit" onclick="add()" name="submit" class="btn" value="提交" />
+           </div>
+ </div>
+<div id="dcFooter">
+ <div id="footer">
+  <div class="line"></div>
+  <ul>
+   
+  </ul>
+ </div>
+</div>
+<script type="text/javascript">
+function sect(){
+	var id={$id};
+	$.ajax({
+		url:"{:url('Goodsattr/action')}",
+		data:{
+		id:id
+		},
+		type:'post',
+		dataType:'json',
+		success:function(reusult){
+			//console.log(reusult)
+			var coud=reusult.data; 
+			var cou=reusult.dete; 
+			option='<option value="0">请先选择</option>'
+				for (var i = 0; i<coud.length; i++) {
+					if (cou==coud[i]['id']) {
+						option=option+"<option value='"+coud[i]['id']+"'selected>"+coud[i]['name']+"</option>"
+					}else{
+						option=option+"<option value='"+coud[i]['id']+"'>"+coud[i]['name']+"</option>"
+					}
+		      }
+ 			$("#sel").html(option)
+ 			attr() 
+		}
+	})
+}
+sect()
+function cat(){
+// console.log(logo);
+	$.ajax({
+	url:"{:url('Goods/dele')}",
+	data:{
+		id:id
+	},
+	type:'post',
+	dataType:'json',
+		success:function(reusult){
+		alert(reusult.data);
+		show()
+		}
+
+	})
+}
+   function attr(){
+   	var sel=$('#sel').val();
+   	var id={$id};
+   	//console.log(sel)
+   		$.ajax({
+		url:"{:url('Goodsattr/show')}",
+		data:{
+			sel:sel,
+			id:id
+		},
+		type:'post',
+		dataType:'json',
+		success:function(reusult){
+		//	console.log(reusult.data)
+			var data=reusult.data
+			var sta=reusult.sta
+			dl=''
+			$.each(data, function( key, value) {
+				dl=dl+"<dt><label class=''><input type='checkbox' value='' id='boxid'/>"+key+"</label></dt><dd>"
+			//	console.log(key)
+				$.each(value,function( key1 ,value1 ){
+						dl=dl+"	<label class=''><input type='checkbox' id='p"+value1['de_id']+"' class='mycheckbox' name='love' value='"+value1['de_id']+"'>"+value1['de_name']+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>"
+					})
+				dl=dl+"</dd>";
+			});
+				 $('#dat').html(dl)
+				$.each(sta,function( key ,value ) {
+					//console.log(value['attr_details_id'])
+					id='p'+value['attr_details_id']
+					$('#'+id).prop("checked",true)
+				})
+				
+		}
+	})
+   }
+	function add(){
+		var id={$id};
+
+		var sel=$('#sel').val();
+		var box=$('.mycheckbox:checked')
+	  	var pemid=''
+		for (var i = 0; i < box.length; i++) {
+	    pemid=pemid+','+box[i].value
+        } 
+        $.ajax({
+		url:"{:url('Goodsattr/add')}",
+		data:{
+			sel:sel,
+			id:id,
+		pemid:pemid
+		},
+		type:'post',
+		//dataType:'json',
+			success:function(reusult){
+				console.log(reusult)
+			// alert(reusult.data);
+			// show()
+			}
+        })
+      // console.log(pemid) 
+	}
+	
+</script>

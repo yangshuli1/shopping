@@ -1,0 +1,73 @@
+  {include file="header"/}
+ <div id="dcMain">
+   <!-- 当前位置 -->
+<div id="urHere">DouPHP 品牌中心<b>></b><strong>属性</strong> </div>   <div id="manager" class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
+    <h3><a href="{:url('Brand/list')}" class="actionBtn">返回列表</a>属性</h3>
+     <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+      <tr>
+       <!--  <input type="" id="__token__" name="__token__" value="{$Request.token}" /> -->
+       </td>
+      </tr>
+      <tr>
+       <td width="100" align="right">属性名字</td>
+       <td>
+        <input type="text" id="ca_id" size="40" class="inpMain" /><select><option>添加已有的属性名字</option></select>
+       </td>
+      </tr>
+      <tr>
+       <td width="100" align="right">属性类型</td>
+       <td>
+        <input type="text" id="bu_id" size="40" class="inpMain" /><select><option>添加已有的属性类型</option></select>
+       </td>
+      </tr>
+      <tr>
+       <td width="100" align="right">属性值</td>
+       <td>
+        <input type="text" id="de_id" size="40" class="inpMain" /><select><option>添加已有的属性值</option></select>
+       </td>       
+      </tr>
+      <tr>
+       <td></td>
+       <td>
+        <input type="hidden" name="token" value="5a58b748" />
+        <input type="button" onclick="but()" name="submit" class="btn" value="提交" />
+       </td>
+      </tr>
+     </table>
+    
+                   </div>
+ </div>
+ <div class="clear"></div>
+<div id="dcFooter">
+ <div id="footer">
+  <div class="line"></div>
+  <ul>
+  </ul>
+ </div>
+</div><!-- dcFooter 结束 -->
+<div class="clear"></div> </div>
+<script type="text/javascript">
+	function but() {
+	var ca_id=$('#ca_id').val();
+    var bu_id=$('#bu_id').val();
+    var de_id=$('#de_id').val();
+    console.log(ca_id);
+    console.log(bu_id);
+    console.log(de_id);
+	    $.ajax({
+	    url:"{:url('Goods/add')}",
+	    data:{
+	      ca_id:ca_id,
+	      bu_id:bu_id,
+	      de_id:de_id
+	    },
+	    type:'post',
+	    // dataType:'json',
+		    success:function(reusult){
+		      // alert(reusult.data)
+	    	}
+	    })
+	}
+</script>
+</body>
+</html>

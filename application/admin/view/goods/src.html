@@ -1,0 +1,74 @@
+{include file="header"/}
+ <div id="dcMain">
+   <!-- 当前位置 -->
+<div id="urHere">DouPHP 商品中心<b>></b><strong>商品中心</strong> </div>   <div class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
+	<div> <input type="file" id="file" name="file" multiple><h3><button id="onc" class="actionBtn">添加相册</button> </h3></div>
+        
+        <span ><h3><a class="actionBtn add" onclick="mydel()" >批量删除</a></h3></span>
+    <table width="100%" id="table" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+    	<th align="left"> <input type="checkbox" id='boxid' onclick="setAllNo()" /></th><th align="left">序号</th><th align="left">照片</th><th width='80' align='center'>操作</th>
+    	 {volist name="arr" id="vo"}
+    	<tr><td></td><td>{$vo.id}</td><td><img src="/static/imgs/{$vo.small_img}"></td><td><a onclick="del({$vo.id})">删除</a></td></tr>
+    	 {/volist}
+          </table>
+           </div>
+ </div>
+ <div class="clear" onclick='delet()'></div>
+<div id="dcFooter">
+ <div id="footer">
+  <div class="line"></div>
+  <ul>
+   
+  </ul>
+ </div>
+</div><!-- dcFooter 结束 -->
+<div class="clear"></div> </div>
+<script type="text/javascript">
+$('#onc').on('click', function(e) {
+        	var formData = new FormData();
+        	 var file=$('#file')[0].files
+        	 var id={$id}
+        	 // var id=$('#id').val()
+			  //	console.log(id)             
+         for (var i = 0; i < file.length; i++) {
+         	formData.append('file[]', $('#file')[0].files[i]);   
+         }
+        // console.log(formData)
+              formData.append('id', id);
+              $.ajax({
+                  url:"{:url('Goods/upl')}",
+                  type: 'POST',
+                 data: formData,         
+                 contentType: false, // 注意这里应设为false
+                 processData: false,
+                 cache: false,
+               //  dataType:'json',
+                 success: function(str) {
+                 	console.log(str)
+                  location.reload(true);
+
+                 },
+                
+             })
+         });
+		function del(id){
+			var id=id
+			//console.log(str)
+			   $.ajax({
+                  url:"{:url('Goods/del')}",
+                  data:{
+						id:id
+						},
+                  type: 'POST',
+                 dataType:'json',
+                 success: function(str) {
+                 	alert(str.data)
+                  // location.reload(true);
+
+                 },
+                
+             })
+		}
+</script>
+</body>
+</html>

@@ -29,7 +29,7 @@
 			tr=tr+"<tr><th align='left'width='30'> <input type='checkbox' id='boxid' onclick='setAllNo()' /></th><th align='left'width='30'>序号</th><th width='120' align='left'>角色名称</th><th width='120' align='left'>角色描述</th><th width='80' align='center'>操作</th></tr>"
 			for (var i = 0; i<cole.length; i++) {
 				//console.log(cole[i].name);
-				tr=tr+"<tr><td><input type='checkbox' class='mycheckbox' value='"+cole[i].id+"' name='love'/></td><td>"+cole[i].id+"</td><td align='left' value='"+cole[i].id+"'><span class='span'>"+cole[i].name+"</span></td><td>"+cole[i].description+"</td><td align='center'><a href='{:url('Role/updat')}?id="+cole[i].id+"'>编辑</a>|<a onclick='dele("+cole[i].id+")'>删除</a></td></tr>"
+				tr=tr+"<tr><td><input type='checkbox' class='mycheckbox' value='"+cole[i].id+"' name='love'/></td><td>"+cole[i].id+"</td><td align='left' value='"+cole[i].id+"'><span class='span'>"+cole[i].name+"</span></td><td>"+cole[i].description+"</td><td align='center'><a href='{:url('Role/upt')}?id="+cole[i].id+"'>编辑</a>|<a onclick='dele("+cole[i].id+")'>删除</a></td></tr>"
 			}
 			$("#table").html(tr)		
 		}

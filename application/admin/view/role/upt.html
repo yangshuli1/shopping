@@ -85,19 +85,16 @@
     var path=$('#path').val();
   	var box=$('.mycheckbox:checked')
   	var pemid=''
-  	// console.log(id);
-  	// console.log(name);
-  	// console.log(path);
 	 for (var i = 0; i < box.length; i++) {
      pemid=pemid+','+box[i].value
         	}  
     //console.log(pemid);
 		$.ajax({
-		url:"{:url('Role/upt')}",
+		url:"{:url('Role/updat')}",
 		data:{
 			id:id,
 			name:name,
-      		path:path,
+      path:path,
 			pemid:pemid
 		},
 		type:'post',

@@ -1,0 +1,153 @@
+ {include file="header"/}
+ <div id="dcMain">
+   <!-- 当前位置 -->
+<div id="urHere">DouPHP 管理中心<b></b><strong>商品修改</strong>|<a href=""><strong>商品属性</strong></a> </div>   <div class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
+            <h3><a href="product.html" class="actionBtn">商品修改</a>商品修改</h3>
+    <!-- <form action="product.php?rec=insert" method="post" enctype="multipart/form-data"> -->
+     <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+      <tr>
+      	<input type="hidden" id="b_id" value="{$arr[0]['b_id']}" size="80" class="inpMain" />
+      	<input type="hidden" id="c_id" value="{$arr[0]['class_id']}" size="80" class="inpMain" />
+      	<input type="hidden" id="id" value="{$arr[0]['id']}" size="80" class="inpMain" />
+       <td width="90" align="right">商品名称</td>
+       <td>
+        <input type="text" id="name" value="{$arr[0]['gs_name']}" size="80" class="inpMain" />
+       </td>
+      </tr>
+      <tr>
+       <td align="right">商品价格</td>
+       <td>
+        <input type="text" id="many" value="{$arr[0]['money']}" size="40" class="inpMain" />
+       </td>
+      </tr>
+      <td align="right">商品状态</td>
+       <td>
+        <input type="text" id="shf" value="{$arr[0]['stock']}" size="40" class="inpMain" />
+       </td>
+      </tr>
+       	<tr>
+       <td align="right">商品品牌</td>
+       <td>
+        <select name="cat_id" id="brand_id" >
+         
+	    </select>
+       </td>
+      </tr>
+       	<tr>
+       <td align="right">商品类型</td>
+       <td>
+        <select name="cat_id" id="class_id">
+         
+	      </select>
+       </td>
+      </tr>
+       	</tr>
+      <td align="right">商品货号</td>
+       <td>
+        <input type="text" id="goods" value="{$arr[0]['ip']}" size="40" class="inpMain" />
+       </td>
+      </tr>
+      <tr>
+       <td align="right" valign="top">商品描述</td>
+       <td>
+         <input type="text" name="" value="{$arr[0]['desc']}" size="50" id="desc" class="inpMain" style="width: 406px;height: 100px;" />
+     </td>
+     </tr>
+      <tr>
+       <td></td>
+       <td>
+        <input type="hidden" name="token" value="21307217" />
+        <input type="hidden" name="id" value="">
+        <input name="submit" onclick="log()" class="btn" type="submit" value="提交" />
+       </td>
+      </tr>
+     </table>
+   <!--  </form> -->
+           </div>
+ </div>
+ <div class="clear"></div>
+<div id="dcFooter">
+ <div id="footer">
+  <div class="line"></div>
+ 
+ </div>
+</div><!-- dcFooter 结束 -->
+<div class="clear"></div> </div>
+<script type="text/javascript">
+	function getcate(){
+    $.ajax({
+    url:"{:url('Goods/action')}",
+    dataType:'json',
+    success:function(reusult){
+      //console.log(reusult);return;
+      var coud=reusult.status
+      var option="<option >请选择商品类型</option>"
+       var cid=$('#c_id').val();
+      for (var i = 0; i<coud.length; i++) {
+        if (cid==coud[i]['id']) {
+        option=option+"<option value='"+coud[i]['id']+"'selected>"+coud[i]['class_name']+"</option>"
+      }else{
+        option=option+"<option value='"+coud[i]['id']+"'>"+coud[i]['class_name']+"</option>"
+      }
+      }
+      $("#class_id").html(option)    
+    }
+  })
+  }
+  getcate()
+  function get(){
+    $.ajax({
+    url:"{:url('Goods/action')}",
+    dataType:'json',
+    success:function(reusult){
+      //console.log(reusult);return;
+      var coud=reusult.atr
+       var bid=$('#b_id').val();
+      var option="<option >请选择商品品牌</option>"
+      for (var i = 0; i<coud.length; i++) {
+       if (bid==coud[i]['id']) {
+        option=option+"<option value='"+coud[i]['id']+"'selected>"+coud[i]['brand_name']+"</option>"
+      }else{
+        option=option+"<option value='"+coud[i]['id']+"'>"+coud[i]['brand_name']+"</option>"
+      }
+      }
+      $("#brand_id").html(option)    
+    }
+  })
+  }
+
+  get()
+  function log(){
+  	var id=$('#id').val();
+   var name=$('#name').val();
+   var many=$('#many').val();
+   var shf=$('#shf').val();
+   var brand_id=$('#brand_id').val();
+   var goods=$('#goods').val();
+   var class_id=$('#class_id').val();
+   var desc=$('#desc').val();
+   // var token=$('#__token__').val()
+   // console.log(desc);
+    $.ajax({
+    url:"{:url('Goods/updat')}",
+    data:{
+      id:id,
+      name:name,
+      many:many,
+      shf:shf,
+      brand_id:brand_id,
+      goods:goods,
+      class_id:class_id,
+      desc:desc
+    },
+    type:'post',
+    dataType:'json',
+    success:function(reusult){
+      alert(reusult.data)
+      
+    }
+  })
+  } 
+</script>
+</body>
+</html>

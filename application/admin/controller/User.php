@@ -22,7 +22,7 @@ class User extends Common
       $arr=Db::query($mysqll);
       $ar=['yan'=>'1','status'=>'OK','data'=>$arr];
    	  $json=json_encode($ar);
-	 	echo $json;
+	 	  echo $json;
    }
     public function add()
    {

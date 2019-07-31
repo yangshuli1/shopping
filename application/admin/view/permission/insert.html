@@ -5,7 +5,6 @@
     <h3><a href="{:url('Permissioncategory/list')}" class="actionBtn">返回列表</a>网站管理员</h3>
      <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
       <tr>
-       
        <!--  <input type="" id="__token__" name="__token__" value="{$Request.token}" /> -->
        </td>
       </tr>
@@ -61,6 +60,7 @@ function getcate(){
     url:"{:url('Permissioncategory/action')}",
     dataType:'json',
     success:function(reusult){
+      //console.log(reusult);return;
       var coud=reusult.message
       var option=''
       for (var i = 0; i<coud.length; i++) {

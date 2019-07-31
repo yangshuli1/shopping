@@ -10,6 +10,7 @@ class Permission extends Common
 {
    public function list()
    {
+
    	return $this->fetch();
    }
    public function action()
@@ -66,14 +67,14 @@ class Permission extends Common
    	 $json=json_encode($arr);
 	 	echo $json;
    }
-   function updat(){
+   function updatet(){
  $data=Request::get('id');
  $mysql="select * from permission where id='$data' ";
   $arr=Db::query($mysql);
   $this->assign('arr',$arr);
    	return $this->fetch();
    }
-   function updatet(){
+   function updat(){
     $tok= Session::get('token');
     $token=Request::post('token');
    	$id=Request::post('id');

@@ -34,5 +34,6 @@ return [
     'taglib_end'   => '}',
     'tpl_replace_string'  =>  [
      '__STATIC__'=>'/static',
+     '__IMG__'=>'/static/img/',
     ]
 ];

@@ -1,0 +1,75 @@
+{include file="header"/}
+ <div id="dcMain">
+   <!-- 当前位置 -->
+<div id="urHere">DouPHP 品牌中心<b>></b><strong>品牌</strong> </div>   <div class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
+        <h3><a href="{:url('Brand/insert')}" class="actionBtn add">添加品牌</a>品牌管理</h3>
+        <span ><h3><a class="actionBtn add" onclick="mydel()" >批量删除</a></h3></span>
+    <table width="100%" id="table" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+          </table>
+           </div>
+ </div>
+ <div class="clear" onclick='delet()'></div>
+<div id="dcFooter">
+ <div id="footer">
+  <div class="line"></div>
+  <ul>
+   
+  </ul>
+ </div>
+</div><!-- dcFooter 结束 -->
+<div class="clear"></div> </div>
+<script type="text/javascript">
+	function show(){
+		$.ajax({
+		url:"{:url('Brand/action')}",
+		dataType:'json',
+		success:function(reusult){
+			var cole=reusult.data
+			var tr=''
+			tr=tr+"<tr><th align='left'> <input type='checkbox' id='boxid' onclick='setAllNo()' /></th><th align='left'>序号</th><th width='120' align='left'>品牌名称</th><th width='120' align='left'>品牌路径</th><th width='120' align='left'>品牌描述</th><th align='left'>品牌logo</th><th width='80' align='center'>操作</th></tr>"
+			for (var i = 0; i<cole.length; i++) {
+				//console.log(cole[i].name);
+				tr=tr+"<tr><td><input type='checkbox' class='mycheckbox' value='"+cole[i].id+"' name='love'/></td><td>"+cole[i].id+"</td><td align='left' value='"+cole[i].id+"'><span class='span'>"+cole[i].brand_name+"</span></td><td>"+cole[i].url+"</td><td>"+cole[i].desc+"</td><td><img style='width: 50px;height: 50px;' src='__IMG__/"+cole[i].logo+"'></td><td align='center'><a href='{:url('Brand/upt')}?id="+cole[i].id+"'>编辑</a>|<a onclick='dele("+cole[i].id+",\""+cole[i].logo+"\")'>删除</a></td></tr>"
+			}
+			$("#table").html(tr)		
+		}
+	})
+
+	}
+	show()
+	function dele(id,logo){
+		var id=id;
+		var logo=logo;
+		// console.log(logo);
+		$.ajax({
+		url:"{:url('Brand/dele')}",
+		data:{
+			id:id,
+			logo:logo
+		},
+		type:'post',
+		dataType:'json',
+		success:function(reusult){
+		alert(reusult.data);
+		show()
+		}
+
+	})
+	}
+	 function setAllNo(){
+             var box = document.getElementById("boxid");
+             var loves = document.getElementsByName("love");
+             if(box.checked == false){
+                 for (var i = 0; i < loves.length; i++) {
+                     loves[i].checked = false;
+                 }
+             }else{
+
+                 for (var i = 0; i < loves.length; i++) {
+                     loves[i].checked = true;
+                     }
+             }
+        }
+</script>
+</body>
+</html>

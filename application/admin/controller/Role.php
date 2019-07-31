@@ -36,7 +36,7 @@ class Role extends Common
       $arr=Db::query($mysqll);
       $ar=['yan'=>'1','status'=>'OK','data'=>$arr];
    	  $json=json_encode($ar);
-	 	echo $json;
+	 	  echo $json;
    }
     public function add()
    {
@@ -71,13 +71,13 @@ class Role extends Common
 	 	echo $json;
 	   	}
    }
-   function updat(){
+   function upt(){
    	$id=Request::get('id');
     $arr=Db::query("select * from role where id = '$id'");
      $this->assign('arr',$arr);
    	 return $this->fetch();
    }
-   function upt(){
+   function updat(){
  $id=Request::post('id');
  $path=Request::post('path');
  $name=Request::post('name');

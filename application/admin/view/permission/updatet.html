@@ -6,7 +6,7 @@
      <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
       
       <tr>
-        <input type="" id="__token__" name="__token__" value="" />
+        <input type="hidden" id="__token__" name="__token__" value="" />
        </td>
       </tr>
       {volist name="arr" id="vo"}
@@ -91,13 +91,14 @@ function getcate(){
     dataType:'json',
     success:function(reusult){
       var coud=reusult.message
+      console.log(coud)
       var option=''
       for (var i = 0; i<coud.length; i++) {
       	if (nid==coud[i]['id']) {
-      		option=option+"<option value='"+coud[i]['id']+"'selected>"+coud[i]['name']+"</option>"
-      	}else{
-      		option=option+"<option value='"+coud[i]['id']+"'>"+coud[i]['name']+"</option>"
-      	}
+        option=option+"<option value='"+coud[i]['id']+"'selected>"+coud[i]['name']+"</option>"
+      }else{
+        option=option+"<option value='"+coud[i]['id']+"'>"+coud[i]['name']+"</option>"
+      }
        
       }
       $("#sel").html(option)    
@@ -113,7 +114,7 @@ function getcate(){
    var description=$('#description').val();
    var token=$('#__token__').val()
 		$.ajax({
-		url:"{:url('Permission/updatet')}",
+		url:"{:url('Permission/updat')}",
 		data:{
 			id:id,
 			name:name,
@@ -125,7 +126,7 @@ function getcate(){
 		type:'post',
 		dataType:'json',
 		success:function(reusult){
-       console.log(reusult.data);
+       // console.log(reusult.data);
 			 // alert(reusult.data);
 			
 		}

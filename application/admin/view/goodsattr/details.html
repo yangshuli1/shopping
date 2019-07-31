@@ -1,0 +1,107 @@
+{include file="header"/}
+ <div id="dcMain">
+   <!-- 当前位置 -->
+<div id="urHere">DouPHP 属性类型<b>></b><strong>属性类型</strong> </div>   <div class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
+        <h3><!-- <a href="{:url('Goodsattr/insert')}" class="actionBtn add">添加属性类型</a> -->属性类型管理</h3>
+        <select id="sel" onchange="deta()"><option>123</option></select><select id="ect"><option>456</option></select>属性值：<input id="name" style="background-color: pink" type="" name="">
+        <span ><h3><a class="actionBtn add" onclick="tail()" >确认添加</a></h3></span>
+    <table width="100%" id="table" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+    	<tr><th width='80' align='left'> <input type='checkbox' width='80' id='boxid' onclick='setAllNo()' /></th><th width='80' align='left'>序号</th><th width='120' align='left'>属性名称</th><th width='80' align='center'>操作</th></tr>
+    	 {volist name="arr" id="vo"} 
+    	<tr>
+    		<td></td><td>{$vo.id}</td><td>{$vo.name}</td><td><a href="">详情</a>|<a href="">删除</a></td>
+    	</tr>
+    	{/volist}
+          </table>
+           </div>
+ </div>
+ <div class="clear" onclick='delet()'></div>
+<div id="dcFooter">
+ <div id="footer">
+  <div class="line"></div>
+  <ul>
+   
+  </ul>
+ </div>
+</div><!-- dcFooter 结束 -->
+<div class="clear"></div> </div>
+<script type="text/javascript">
+	function bute(){
+		$.ajax({
+			url:"{:url('Goodsattr/action')}",
+			dataType:'json',
+		success:function(reusult){
+		var coud=reusult.data;
+		option='<option value="0">请先选择</option>'
+		for (var i = 0; i<coud.length; i++) {
+       option=option+"<option value='"+coud[i]['id']+"'>"+coud[i]['name']+"</option>"
+      }
+      $("#sel").html(option)  
+	
+		}
+		})
+	}
+	bute()
+	function deta(){
+		var sel =$('#sel').val()
+		//console.log(id)
+		$.ajax({
+			url:"{:url('Goodsattr/det')}",
+			data:{
+			sel:sel
+		},
+		type:'post',
+		dataType:'json',
+		success:function(reusult){
+		var coud=reusult.data;
+		option='<option value="0">请先选择</option>'
+		for (var i = 0; i<coud.length; i++) {
+       option=option+"<option value='"+coud[i]['id']+"'>"+coud[i]['name']+"</option>"
+      }
+      $("#ect").html(option)  
+		 }
+		})
+	}
+	deta()
+	function tail(){
+		var ect =$('#ect').val()
+		var name =$('#name').val()
+		// console.log(ect)
+		// console.log(name)
+		$.ajax({
+		url:"{:url('Goodsattr/tail')}",
+		data:{
+			ect:ect,
+			name:name
+		},
+		type:'post',
+		dataType:'json',
+		success:function(reusult){
+		alert(reusult.data);
+		show()
+		}
+		})
+	}
+	function dele(id,logo){
+		var id=id;
+		var logo=logo;
+		// console.log(logo);
+		$.ajax({
+		url:"{:url('Brand/dele')}",
+		data:{
+			id:id,
+			logo:logo
+		},
+		type:'post',
+		dataType:'json',
+		success:function(reusult){
+		alert(reusult.data);
+		show()
+		}
+
+	})
+	}
+
+</script>
+</body>
+</html>

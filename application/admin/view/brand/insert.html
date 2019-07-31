@@ -1,0 +1,82 @@
+  {include file="header"/}
+ <div id="dcMain">
+   <!-- 当前位置 -->
+<div id="urHere">DouPHP 品牌中心<b>></b><strong>品牌</strong> </div>   <div id="manager" class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
+    <h3><a href="{:url('Brand/list')}" class="actionBtn">返回列表</a>品牌</h3>
+     <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+      <tr>
+       <!--  <input type="" id="__token__" name="__token__" value="{$Request.token}" /> -->
+       </td>
+      </tr>
+      <tr>
+       <td width="100" align="right">品牌名字</td>
+       <td>
+        <input type="text" id="brand_name" size="40" class="inpMain" />
+       </td>
+      </tr>
+      <tr>
+       <td width="100" align="right">品牌描述</td>
+       <td>
+        <input type="text" id="description" size="40" class="inpMain" />
+       </td>
+      </tr>
+      <tr>
+       <td width="100" align="right">品牌连接地址</td>
+       <td>
+        <input type="text" id="url" size="40" class="inpMain" />
+       </td>       
+      </tr>
+      <tr>
+       <td width="100" align="right">品牌logo</td>
+       <td>
+        <input type="file" name="myfile" id="logo" style="font-size: 0.7rem;">
+       </td>      
+      </tr>
+      <tr>
+       <td></td>
+       <td>
+        <input type="hidden" name="token" value="5a58b748" />
+        <input type="button" id="onc" name="submit" class="btn" value="提交" />
+       </td>
+      </tr>
+     </table>
+    </div>
+ </div>
+ <div class="clear"></div>
+<div id="dcFooter">
+ <div id="footer">
+  <div class="line"></div>
+  <ul>
+  </ul>
+ </div>
+</div><!-- dcFooter 结束 -->
+<div class="clear"></div> </div>
+<script type="text/javascript">
+	 $('#onc').on('click', function(e) {
+        	var formData = new FormData();
+        	var brand_name=$('#brand_name').val()
+			  	var description=$('#description').val()
+			  	// console.log(brand_name)
+			  	var url=$('#url').val()
+              formData.append('logo', $('#logo')[0].files[0]);
+              formData.append('brand_name', brand_name);
+              formData.append('description', description);
+              formData.append('url', url);
+              $.ajax({
+                  url:"{:url('brand/add')}",
+                  type: 'POST',
+                 data: formData,         
+                 contentType: false, // 注意这里应设为false
+                 processData: false,
+                 cache: false,
+                 dataType:'json',
+                 success: function(str) {
+                 	alert(str.data)
+                    
+                 },
+                
+             })
+         });
+</script>
+</body>
+</html>

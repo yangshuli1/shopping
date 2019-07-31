@@ -1,0 +1,145 @@
+ {include file="header"/}
+ <div id="dcMain">
+   <!-- 当前位置 -->
+<div id="urHere">DouPHP 管理中心<b></b><strong>添加商品</strong> </div>   <div class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
+            <h3><a href="product.html" class="actionBtn">商品列表</a>添加商品</h3>
+    <!-- <form action="product.php?rec=insert" method="post" enctype="multipart/form-data"> -->
+     <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+      <tr>
+       <td width="90" align="right">商品名称</td>
+       <td>
+        <input type="text" id="name" value="" size="80" class="inpMain" />
+       </td>
+      </tr>
+      <tr>
+       <td align="right">商品价格</td>
+       <td>
+        <input type="text" id="many" value="0" size="40" class="inpMain" />
+       </td>
+      </tr>
+      <td align="right">商品状态</td>
+       <td>
+        <input type="text" id="shf" value="0" size="40" class="inpMain" />
+       </td>
+      </tr>
+       	<tr>
+       <td align="right">商品品牌</td>
+       <td>
+        <select name="cat_id" id="b_id">
+         
+	    </select>
+       </td>
+      </tr>
+       	<tr>
+       <td align="right">商品类型</td>
+       <td>
+        <select name="cat_id" id="c_id">
+         
+	      </select>
+       </td>
+      </tr>
+       	</tr>
+      <td align="right">商品货号</td>
+       <td>
+        <input type="text" id="goods" value="" size="40" class="inpMain" />
+       </td>
+      </tr>
+     <!--  </tr>
+      <td align="right">商品图片</td>
+       <td>
+       <span id="span" ></span>
+       <input type="file" id="chooseImage" name="file">
+       </td>
+      </tr> -->
+      <tr>
+       <td align="right" valign="top">商品描述</td>
+       <td>
+         <input type="text" name="" value="" size="50" id="desc" class="inpMain" style="width: 406px;height: 100px;" />
+     </td>
+     </tr>
+      <tr>
+       <td></td>
+       <td>
+        <input type="hidden" name="token" value="21307217" />
+        <input type="hidden" name="id" value="">
+        <input name="submit" onclick="log()" class="btn" type="submit" value="提交" />
+       </td>
+      </tr>
+     </table>
+   <!--  </form> -->
+           </div>
+ </div>
+ <div class="clear"></div>
+<div id="dcFooter">
+ <div id="footer">
+  <div class="line"></div>
+ 
+ </div>
+</div><!-- dcFooter 结束 -->
+<div class="clear"></div> </div>
+<script type="text/javascript">
+	function getcate(){
+    $.ajax({
+    url:"{:url('Goods/action')}",
+    dataType:'json',
+    success:function(reusult){
+      //console.log(reusult);return;
+      var coud=reusult.status
+      var option="<option >请选择商品类型</option>"
+      for (var i = 0; i<coud.length; i++) {
+       option=option+"<option value='"+coud[i]['id']+"'>"+coud[i]['class_name']+"</option>"
+      }
+      $("#c_id").html(option)    
+    }
+  })
+  }
+  getcate()
+  function get(){
+    $.ajax({
+    url:"{:url('Goods/action')}",
+    dataType:'json',
+    success:function(reusult){
+      //console.log(reusult);return;
+      var coud=reusult.atr
+      var option="<option >请选择商品品牌</option>"
+      for (var i = 0; i<coud.length; i++) {
+       option=option+"<option value='"+coud[i]['id']+"'>"+coud[i]['brand_name']+"</option>"
+      }
+      $("#b_id").html(option)    
+    }
+  })
+  }
+  get()
+  function log(){
+   var name=$('#name').val();
+   var many=$('#many').val();
+   var shf=$('#shf').val();
+   var b_id=$('#b_id').val();
+   var goods=$('#goods').val();
+   var c_id=$('#c_id').val();
+   var desc=$('#desc').val();
+   // var token=$('#__token__').val()
+   // console.log(name);
+   
+    $.ajax({
+    url:"{:url('Goods/add')}",
+    data:{
+      name:name,
+      many:many,
+      shf:shf,
+      b_id:b_id,
+      goods:goods,
+      c_id:c_id,
+      desc:desc
+    },
+    type:'post',
+    dataType:'json',
+    success:function(reusult){
+      alert(reusult.data)
+      
+    }
+  })
+  } 
+</script>
+</body>
+</html>

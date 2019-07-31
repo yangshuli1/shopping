@@ -1,0 +1,110 @@
+  {include file="header"/}
+ <div id="dcMain">
+   <!-- 当前位置 -->
+<div id="urHere">DouPHP 品牌中心<b>></b><strong>品牌</strong> </div>   <div id="manager" class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
+    <h3><a href="{:url('Brand/list')}" class="actionBtn">返回列表</a>品牌</h3>
+     <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+      {volist name="arr" id="vo"} 
+      <tr>
+      	<input type="hidden" id="id" value="{$vo.id}" size="40" class="inpMain" />
+       <!--  <input type="" id="__token__" name="__token__" value="{$Request.token}" /> -->
+       <input type="hidden" id="logode" value="{$vo.logo}" name="">
+       </td>
+      </tr>
+      
+      <tr>
+       <td width="100" align="right">品牌名字</td>
+       <td>
+        <input type="text" id="brand_name" value="{$vo.brand_name}" size="40" class="inpMain" />
+       </td>
+      </tr>
+      <tr>
+       <td width="100" align="right">品牌描述</td>
+       <td>
+        <input type="text" id="description" value="{$vo.desc}" size="40" class="inpMain" />
+       </td>
+      </tr>
+      <tr>
+       <td width="100" align="right">品牌连接地址</td>
+       <td>
+        <input type="text" id="url" size="40" value="{$vo.url}" class="inpMain" />
+       </td>       
+      </tr>
+      <tr>
+       <td width="100" align="right">品牌logo</td>
+       
+        <td>
+          <img style='width: 50px;height: 50px;' src='__IMG__/{$vo.logo}' id="img" >
+          <span>新logo</span>
+          <span id="span" ></span>
+            <input type="file" id="chooseImage" name="file">
+           </td>
+      </tr>
+       {/volist}
+      <tr>
+       <td></td>
+       <td>
+        <input type="hidden" name="token" value="5a58b748" />
+       <input type="button" id="onc" name="submit" class="btn" value="提交" />
+       </td>
+      </tr>
+     </table>
+    
+                   </div>
+ </div>
+ <div class="clear"></div>
+<div id="dcFooter">
+ <div id="footer">
+  <div class="line"></div>
+  <ul>
+  </ul>
+ </div>
+</div><!-- dcFooter 结束 -->
+<div class="clear"></div> </div>
+<script type="text/javascript">
+$('#onc').on('click', function(e) {
+    var id=$('#id').val(); 
+   var brand_name=$('#brand_name').val();
+   var path=$('#path').val();
+   var formData = new FormData();
+   var description=$('#description').val();
+   var url=$('#url').val();
+   var logode=$('#logode').val();
+   // var chooseImage=$('#chooseImage').val();
+   // console.log(chooseImage)
+    formData.append('chooseImage', $('#chooseImage')[0].files[0]);
+    formData.append('brand_name', brand_name);
+    formData.append('description', description);
+    formData.append('url', url);
+    formData.append('logode', logode);
+    formData.append('id', id);
+		$.ajax({
+		url:"{:url('Brand/updat')}",
+		 type: 'POST',
+     data: formData,         
+     contentType: false, // 注意这里应设为false
+     processData: false,
+     cache: false,
+     dataType:'json',
+		success:function(reusult){
+			alert(reusult.data)
+			
+		}
+	})
+	});
+ $('#chooseImage').on('change',function(){
+      var filePath = $(this).val(),         //获取到input的value，里面是文件的路径
+        fileFormat = filePath.substring(filePath.lastIndexOf(".")).toLowerCase(),
+        src = window.URL.createObjectURL(this.files[0]); //转成可以在本地预览的格式
+      // 检查是否是图片
+      if( !fileFormat.match(/.png|.jpg|.jpeg/) ) {
+        error_prompt_alert('上传错误,文件格式必须为：png/jpg/jpeg');
+          return;  
+        }
+      $('#span').html(" <img style='width: 50px;height: 50px;' src='"+src+"' >")
+  
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+ {include file="header"/}
+ <div id="dcMain">
+   <!-- 当前位置 -->
+<div id="urHere">DouPHP 管理中心<b></b><strong>添加商品</strong> </div>   <div class="mainBox" style="height:auto!important;height:550px;min-height:550px;">
+            <h3><a href="product.html" class="actionBtn">商品列表</a>添加商品</h3>
+    <!-- <form action="product.php?rec=insert" method="post" enctype="multipart/form-data"> -->
+     <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+      <tr>
+       <td>货品价格</td>
+       </tr>
+      <tr>
+       <td>
+        <input type="text" id="price" value="" size="40" class="inpMain" />
+       </td>
+      </tr>
+      <tr>
+       <td>商品库存</td>
+       </tr>
+      <tr>
+       <td>
+        <input type="text" id="number" value="0" size="40" class="inpMain" />
+       </td>
+      </tr>
+      <td >商品状态</td>
+      </tr>
+      <tr>
+       <td>
+        <select>
+        	<option>是否上架</option>
+        	<option>上架</option>
+        	<option>不上</option>
+        </select>
+       </td>
+      </tr>
+      <tr>
+      	<td >
+      	<dl id='dat'>
+			
+		</dl>	
+      	</td>
+      </tr>
+    <!--    	</tr>
+      <td>商品处理器</td>
+      </tr>
+      <tr>
+       <td>
+        <input type="text" id="goods" value="" size="40" class="inpMain" />
+       </td>
+      </tr> -->
+      <tr>
+       <td>
+        <input type="hidden" name="token" value="21307217" />
+        <input type="hidden" name="id" value="">
+        <input name="submit" onclick="log()" class="btn" type="submit" value="提交" />
+       </td>
+      </tr>
+     </table>
+   <!--  </form> -->
+           </div>
+ </div>
+ <div class="clear"></div>
+<div id="dcFooter">
+ <div id="footer">
+  <div class="line"></div>
+ 
+ </div>
+</div><!-- dcFooter 结束 -->
+<div class="clear"></div> </div>
+<script type="text/javascript">
+	function attr(){
+   	var id={$id};
+   	
+   	var sel={$attr_cat}
+
+   		$.ajax({
+		url:"{:url('Goods/show')}",
+		data:{
+			sel:sel,
+			id:id
+		},
+		type:'post',
+		dataType:'json',
+		success:function(reusult){
+			//console.log(reusult)
+			var data=reusult.data
+			var sta=reusult.sta
+			dl=''
+			$.each(data, function( key, value) {
+				dl=dl+"<dt><label class=''>"+key+"</label></dt><dd><select >"
+			//	console.log(key)
+				$.each(value,function( key1 ,value1 ){
+						dl=dl+"	<option type='checkbox' id='p"+value1['de_id']+"' class='mycheckbox' name='love' value='"+value1['de_id']+"'>"+value1['de_name']+"</option>"
+					})
+				dl=dl+"</dd></select>";
+			});
+				 $('#dat').html(dl)
+				
+		}
+	})
+   }
+   attr()
+  function log(){
+   var id={$id};
+
+   var price=$('#price').val();
+   var number=$('#number').val();
+   str=[]
+   $('#dat').children("dd").children("select").each(function( key ,value ){
+   	for (var i = 0; i < value.length; i++) {
+   		if (value.options[i].selected) {
+   			str.push(value[i].value)
+   		}
+   	}
+	})
+    $.ajax({
+    url:"{:url('goods/goodsatt')}",
+    data:{
+      id:id,
+      price:price,
+      number:number,
+      str:str
+    },
+    type:'post',
+    dataType:'json',
+    success:function(reusult){
+    alert(reusult.data)
+      
+    }
+  })
+  } 
+</script>
+</body>
+</html>

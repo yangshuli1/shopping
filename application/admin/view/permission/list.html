@@ -29,7 +29,7 @@
 			tr=tr+"<tr><th align='left'> <input type='checkbox' id='boxid' onclick='setAllNo()' /></th><th align='left'>序号</th><th width='120' align='left'>权限名称</th><th width='120' align='left'>权限路径</th><th width='120' align='left'>权限描述</th><th align='left'>权限类型</th><th width='80' align='center'>操作</th></tr>"
 			for (var i = 0; i<cole.length; i++) {
 				//console.log(cole[i].name);
-				tr=tr+"<tr><td><input type='checkbox' class='mycheckbox' value='"+cole[i].id+"' name='love'/></td><td>"+cole[i].id+"</td><td align='left' value='"+cole[i].id+"'><span class='span'>"+cole[i].name+"</span></td><td>"+cole[i].path+"</td><td>"+cole[i].description+"</td><td>"+cole[i].pc_name+"</td><td align='center'><a href='{:url('Permission/updat')}?id="+cole[i].id+"'>编辑</a>|<a onclick='dele("+cole[i].id+")'>删除</a></td></tr>"
+				tr=tr+"<tr><td><input type='checkbox' class='mycheckbox' value='"+cole[i].id+"' name='love'/></td><td>"+cole[i].id+"</td><td align='left' value='"+cole[i].id+"'><span class='span'>"+cole[i].name+"</span></td><td>"+cole[i].path+"</td><td>"+cole[i].description+"</td><td>"+cole[i].pc_name+"</td><td align='center'><a href='{:url('Permission/updatet')}?id="+cole[i].id+"'>编辑</a>|<a onclick='dele("+cole[i].id+")'>删除</a></td></tr>"
 			}
 			$("#table").html(tr)		
 		}

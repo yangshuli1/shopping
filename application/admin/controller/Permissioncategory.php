@@ -47,13 +47,12 @@ class Permissioncategory extends Common
    }
    public function action()
    {
-   	$rbac=new Rbac;
-   	$ar=array();
-   	$arr=$rbac->getPermissionCategory($ar);
-   	// var_dump($arr);
-   	$arrr=['message'=>$arr];
-   	 $json=json_encode($arrr);
-	 echo $json;
+     	$rbac=new Rbac;
+     	$ar=array();
+     	$arr=$rbac->getPermissionCategory($ar);
+     	$arrr=['message'=>$arr];
+     	 $json=json_encode($arrr);
+  	  echo $json;
    }
    public function dele()
    {
